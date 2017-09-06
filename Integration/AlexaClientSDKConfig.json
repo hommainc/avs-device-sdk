@@ -1,17 +1,21 @@
- {
+{
+    "alertsCapabilityAgent":{
+        "timerShortSoundFilePath":"/home/pi/alexa/sound/timer_short.wav",
+        "alarmSoundFilePath":"/home/pi/alexa/sound/alarm_default.mp3",
+        "databaseFilePath":"/home/pi/alexa/db/alexa.db",
+        "timerSoundFilePath":"/home/pi/alexa/sound/timer_default.mp3",
+        "alarmShortSoundFilePath":"/home/pi/alexa/sound/alarm_short.wav"
+    },
     "authDelegate":{
-        "clientSecret":"${SDK_CONFIG_CLIENT_SECRET}",
-        "deviceSerialNumber":"${SDK_CONFIG_DEVICE_SERIAL_NUMBER}",
-        "refreshToken":"${SDK_CONFIG_REFRESH_TOKEN}",
-        "clientId":"${SDK_CONFIG_CLIENT_ID}",
-        "deviceTypeId":"${SDK_CONFIG_DEVICE_TYPE_ID}"
-     },
-
-   "alertsCapabilityAgent":{
-     "databaseFilePath":"${SDK_SQLITE_DATABASE_FILE_PATH}",
-     "alarmSoundFilePath":"${SDK_ALARM_DEFAULT_SOUND_FILE_PATH}",
-     "alarmShortSoundFilePath":"${SDK_ALARM_SHORT_SOUND_FILE_PATH}",
-     "timerSoundFilePath":"${SDK_TIMER_DEFAULT_SOUND_FILE_PATH}",
-     "timerShortSoundFilePath":"${SDK_TIMER_SHORT_SOUND_FILE_PATH}"
-   }
- }
+        "clientSecret":"8d3c52582bfd06c61cefea497b9ebcaaeb6fb8ce9dde20d358009111a58ad65d",
+        "deviceSerialNumber":"pi-aws-c-sdk-1",
+        "refreshToken":"Atzr|IwEBIFONuchXKtgXp3SYs739R9PM11G6A_Hjx_Sm3SFhiwcO-lF8DBv8pK0KcvU1oeLeMiOFO-qbeqoK7Yi4CNvmPnZ3-eOv1x2ibdfAPZmhSsdRE-CXCyIqzr_edX8uUWJCVrvI2DHMf87yc8T-wVDadwaUxZvrvZQzQPgDUeOlPo77UACP1swPyJoLmkRu-N1dotUjKKFDVfatnAR58av9bjKrUJapkYv5MKZytQVNw3oC3-tqyK8JcrKx1dFRmMRzL-MJKs7t3Ip9zo-9rfT3tCzqxLkXsE01kQBbw_WVfwMQ3BMj1H1Ock-rO6QV9ko_Fe8bxAVWXZ--dOoc8n_9FLqT4jEkngA2FVREAIB2jy_dkZ17eV2-s3XJ5fTK6Y5B19PsHnPNIEDtJpcEoZ3uGlExU7fUW5493NluxuEfLC45CbqOq80nSeF8QVVNynmLi6sojCfus2fDxuAxDqB3vObwj4lN7Cw8-nVen_jreoFgXh1eTU9CBBJcmsAlPoaB8tc742QbKQpVdepfsBynxIxZS3gzIm5DQweNY7iPAfDwAw",
+        "clientId":"amzn1.application-oa2-client.91b432160e7241f689c7d387787a8c81",
+        "deviceTypeId":"krizavahomma"
+    },
+    "mqtt":{
+	"broker":"tcp://192.168.86.26:1883",
+	"topic":"/point/device",
+	"clientid":"MyClientName"
+	}
+}
