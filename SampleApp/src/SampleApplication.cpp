@@ -17,6 +17,7 @@
 
 #include "SampleApp/KeywordObserver.h"
 #include "SampleApp/ConnectionObserver.h"
+#include "SampleApp/MQTTManager.h"
 #include "SampleApp/SampleApplication.h"
 
 #ifdef KWD_KITTAI
@@ -307,6 +308,16 @@ bool SampleApplication::initialize(
         alexaClientSDK::sampleApp::ConsolePrinter::simplePrint("Failed to create PortAudioMicrophoneWrapper!");
         return false;
     }
+
+    /*
+     * Creating the MQTT Component
+     */
+    auto mqttManager = std::make_shared<alexaClientSDK::sampleApp::MQTTManager>(
+            client, 
+            micWrapper,
+            userInterfaceManager);
+
+    mqttManager->connect();
 
     // Creating wake word audio provider, if necessary
 #ifdef KWD

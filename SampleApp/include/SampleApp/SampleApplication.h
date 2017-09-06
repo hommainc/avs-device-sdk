@@ -67,6 +67,7 @@ private:
 
     /// The @c UserInputManager which controls the client.
     std::unique_ptr<UserInputManager> m_userInputManager;
+    std::unique_ptr<
 
 #ifdef KWD
     /// The Wakeword Detector which can wake up the client using audio input.

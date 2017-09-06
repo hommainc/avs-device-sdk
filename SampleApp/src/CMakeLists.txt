@@ -7,6 +7,7 @@ add_executable(SampleApp
     UIManager.cpp
     KeywordObserver.cpp
     ConnectionObserver.cpp
+    MQTTManager.cpp
     SampleApplication.cpp)
 
 target_include_directories(SampleApp PUBLIC 
@@ -19,7 +20,8 @@ target_link_libraries(SampleApp
     DefaultClient
     AuthDelegate 
     MediaPlayer 
-    "${PORTAUDIO_LIB_PATH}")
+    "${PORTAUDIO_LIB_PATH}"
+    "${PAHO_MQTT_LIB_PATH}")
 
 if(KITTAI_KEY_WORD_DETECTOR)
     target_link_libraries(SampleApp 
