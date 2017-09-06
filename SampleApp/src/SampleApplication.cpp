@@ -309,16 +309,6 @@ bool SampleApplication::initialize(
         return false;
     }
 
-    /*
-     * Creating the MQTT Component
-     */
-    auto mqttManager = std::make_shared<alexaClientSDK::sampleApp::MQTTManager>(
-            client, 
-            micWrapper,
-            userInterfaceManager);
-
-    mqttManager->connect();
-
     // Creating wake word audio provider, if necessary
 #ifdef KWD
     bool wakeAlwaysReadable = true;
@@ -383,6 +373,16 @@ bool SampleApplication::initialize(
             holdToTalkAudioProvider, 
             tapToTalkAudioProvider);
 #endif
+
+    /*
+     * Creating the MQTT Component
+     */
+    auto mqttManager = std::make_shared<alexaClientSDK::sampleApp::MQTTManager>(
+            client, 
+            micWrapper,
+            holdToTalkAudioProvider);
+
+    mqttManager->connect();
 
     // Creating the input observer.
     m_userInputManager = alexaClientSDK::sampleApp::UserInputManager::create(interactionManager);

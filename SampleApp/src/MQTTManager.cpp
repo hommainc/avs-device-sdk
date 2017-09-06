@@ -39,10 +39,10 @@ namespace sampleApp {
 MQTTManager::MQTTManager(
         std::shared_ptr<defaultClient::DefaultClient> client, 
         std::shared_ptr<sampleApp::PortAudioMicrophoneWrapper> micWrapper,
-        std::shared_ptr<sampleApp::UIManager> userInterface) : 
+        capabilityAgents::aip::AudioProvider tapToTalkAudioProvider) : 
     m_client{client}, 
-    m_micWrapper{micWrapper}, 
-    m_userInterface{userInterface} {
+    m_micWrapper{micWrapper},
+    m_tapToTalkAudioProvider{tapToTalkAudioProvider} {
 
     auto configuration = avsCommon::utils::configuration::ConfigurationNode::getRoot()[MQTT_CONFIGURATION_ROOT_KEY];
     configuration.getString(CONFIG_KEY_BROKER_ADDRESS, &m_brokerAddress, DEFAULT_BROKER_ADDRESS);
@@ -73,6 +73,19 @@ int MQTTManager::messageArrived(void *context, char *topicName, int topicLen, MQ
         putchar(*payloadptr++);
     }
     putchar('\n');
+
+    //m_client->notifyOfTapToTalk(m_tapToTalkAudioProvider).get();
+
+    m_executor.submit(
+        [this] () {
+            if (m_client->notifyOfTapToTalk(m_tapToTalkAudioProvider).get()) {
+                ConsolePrinter::simplePrint("TAP TO TALK ON");
+            }
+        }
+    );
+
+    // m_interactionManager->tap();
+
     MQTTClient_freeMessage(&message);
     MQTTClient_free(topicName);
     return 1;
@@ -92,12 +105,10 @@ void MQTTManager::connect() {
     conn_opts.keepAliveInterval = 20;
     conn_opts.cleansession = 1;   
 
-    int rc;
-
     MQTTClient_create(&m_mqttClient, m_brokerAddress.c_str(), m_mqttclientid.c_str(), MQTTCLIENT_PERSISTENCE_NONE, NULL);
-
     MQTTClient_setCallbacks(m_mqttClient, NULL, connectionLost, messageArrived, messageDelivered);
 
+    int rc;
     if ((rc = MQTTClient_connect(m_mqttClient, &conn_opts)) != MQTTCLIENT_SUCCESS)
     {
         printf("Failed to connect, return code %d\n", rc);

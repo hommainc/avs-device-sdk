@@ -23,14 +23,16 @@ public:
      */
     MQTTManager(std::shared_ptr<defaultClient::DefaultClient> client, 
         std::shared_ptr<sampleApp::PortAudioMicrophoneWrapper> micWrapper,
-        std::shared_ptr<sampleApp::UIManager> userInterface);
+        capabilityAgents::aip::AudioProvider tapToTalkAudioProvider);
+
+
 
     void connect();
 private:
     MQTTClient m_mqttClient;
-    static void connectionLost(void *context, char *cause);
-    static void messageDelivered(void *context, MQTTClient_deliveryToken dt);
-    static int messageArrived(void *context, char *topicName, int topicLen, MQTTClient_message *message);
+    void connectionLost(void *context, char *cause);
+    void messageDelivered(void *context, MQTTClient_deliveryToken dt);
+    int messageArrived(void *context, char *topicName, int topicLen, MQTTClient_message *message);
 
     std::string m_brokerAddress;
     std::string m_mqttTopic;
@@ -41,9 +43,8 @@ private:
 
     /// The microphone managing object.
     std::shared_ptr<sampleApp::PortAudioMicrophoneWrapper> m_micWrapper;
-
-    /// The user interface manager.
-    std::shared_ptr<sampleApp::UIManager> m_userInterface;
+    capabilityAgents::aip::AudioProvider m_tapToTalkAudioProvider;
+    avsCommon::utils::threading::Executor m_executor;
 };
 
 } // namespace sampleApp

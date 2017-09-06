@@ -14,8 +14,8 @@
         "deviceTypeId":"krizavahomma"
     },
     "mqtt":{
-	"broker":"tcp://192.168.86.26:1883",
-	"topic":"/point/device",
-	"clientid":"MyClientName"
+    	"broker":"tcp://192.168.86.26:1883",
+    	"topic":"/point/device",
+    	"clientid":"MyClientName"
 	}
 }
