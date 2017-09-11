@@ -74,15 +74,21 @@ int MQTTManager::messageArrived(void *context, char *topicName, int topicLen, MQ
     }
     putchar('\n');
 
-    //m_client->notifyOfTapToTalk(m_tapToTalkAudioProvider).get();
+    MQTTManager* contextMqttManager = static_cast<MQTTManager*>(context);
+    if (contextMqttManager) { // check if pointer is null
+        printf("contextMqttManager IS AN MQTTManager");
+        contextMqttManager->m_client->notifyOfTapToTalk(contextMqttManager->m_tapToTalkAudioProvider).get();
+    } else {
+        printf("contextMqttManager is NULL therefore context is not an MQTTManager");
+    }
 
-    m_executor.submit(
-        [this] () {
-            if (m_client->notifyOfTapToTalk(m_tapToTalkAudioProvider).get()) {
-                ConsolePrinter::simplePrint("TAP TO TALK ON");
-            }
-        }
-    );
+    // m_executor.submit(
+    //     [this] () {
+    //         if (m_client->notifyOfTapToTalk(m_tapToTalkAudioProvider).get()) {
+    //             ConsolePrinter::simplePrint("TAP TO TALK ON");
+    //         }
+    //     }
+    // );
 
     // m_interactionManager->tap();
 
